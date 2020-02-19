@@ -3,5 +3,5 @@
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <string name="TMDB_API_KEY">api_key</string>
+    <string name="TMDB_API_KEY">api-key</string>
 </resources>

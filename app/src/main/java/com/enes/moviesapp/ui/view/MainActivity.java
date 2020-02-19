@@ -1,34 +1,32 @@
 package com.enes.moviesapp.ui.view;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
-
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.viewpager.widget.ViewPager;
 
 import com.enes.moviesapp.R;
 import com.enes.moviesapp.adapter.CustomPagerAdapter;
-import com.google.android.material.tabs.TabLayout;
+import com.enes.moviesapp.databinding.ActivityMainBinding;
 
 
 public class MainActivity extends AppCompatActivity{
 
-    CustomPagerAdapter customPagerAdapter;
-    private ViewPager viewPager;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
-        viewPager = findViewById(R.id.viewPager);
-        setupPager(viewPager);
+        ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        binding.setOwner(this);
 
-        TabLayout tabLayout = findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(viewPager);
+        setupPager(binding.viewPager);
+
+        binding.tabs.setupWithViewPager(binding.viewPager);
     }
 
     private void setupPager(ViewPager viewPager) {
-        customPagerAdapter = new CustomPagerAdapter(getSupportFragmentManager(), 1);
+        CustomPagerAdapter customPagerAdapter = new CustomPagerAdapter(getSupportFragmentManager(), 1);
         customPagerAdapter.addFragment(new MovieFragment(), "MOVIES");
         customPagerAdapter.addFragment(new SeriesFragment(), "SERIES");
         viewPager.setAdapter(customPagerAdapter);
