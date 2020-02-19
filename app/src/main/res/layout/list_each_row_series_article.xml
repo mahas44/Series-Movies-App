@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="series"
+            type="com.enes.moviesapp.model.series.Series" />
+
+        <variable
+            name="clickListener"
+            type="com.enes.moviesapp.ui.SeriesListItemClickListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@{() -> clickListener.seriesClicked(series)}"
+        android:background="@android:color/black">
+
+        <ImageView
+            android:id="@+id/imgViewCover1"
+            android:layout_width="120dp"
+            android:layout_height="160dp"
+            android:layout_marginStart="4dp"
+            android:scaleType="centerCrop"
+            bind:seriesPoster="@{series.poster_path}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_margin="10dp"
+            android:layout_toEndOf="@+id/imgViewCover1"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@+id/imgViewCover1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imgViewCover1"
+            app:layout_constraintTop_toTopOf="@+id/imgViewCover1">
+
+            <TextView
+                android:id="@+id/tvTitle1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:text="@{series.name}" />
+
+            <TextView
+                android:id="@+id/tvAuthorAndPublishedAt1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/darker_gray"
+                android:textStyle="italic"
+                android:text="@{series.first_air_date}"/>
+
+            <TextView
+                android:id="@+id/tvVoteAverage1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/darker_gray"
+                android:textStyle="italic"
+
+                android:text="@{Double.toString(series.vote_average)}"/>
+
+            <TextView
+                android:id="@+id/tvDescription1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="@{series.overview}"
+                android:textColor="@android:color/darker_gray" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
+

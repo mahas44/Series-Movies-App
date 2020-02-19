@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">MoviesApp</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="TMDB_API_KEY">api_key</string>
+</resources>
