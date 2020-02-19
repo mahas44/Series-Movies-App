@@ -2,10 +2,7 @@
 
 MVVM Architecure
 
-Retrofit
-Dagger2
-Paging Library
-DataBinding
+Retrofit - Dagger2 - Paging Library - DataBinding
 
-YoutubeAndroidPlayer API
-TMDB API
+YoutubeAndroidPlayer API - TMDB API
+
