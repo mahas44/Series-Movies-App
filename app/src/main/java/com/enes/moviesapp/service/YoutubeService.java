@@ -2,6 +2,7 @@ package com.enes.moviesapp.service;
 
 import android.content.Context;
 
+import com.enes.moviesapp.BaseConstant;
 import com.enes.moviesapp.model.YouTubeVideoItem;
 import com.enes.moviesapp.ui.OnTaskCompletedListener;
 import com.google.api.client.http.HttpRequest;
@@ -16,7 +17,7 @@ import com.google.api.services.youtube.model.SearchResult;
 import java.io.IOException;
 import java.util.List;
 
-public class YoutubeService {
+public class YoutubeService implements BaseConstant {
 
     private YouTube youTube;
 
@@ -24,8 +25,6 @@ public class YoutubeService {
 
     private OnTaskCompletedListener onTaskCompletedListener;
 
-    private static String YouTube_API_KEY = "api key";
-    private static String SHA_1_FINGER_PRINT = "sha-1 finger print";
 
     public YoutubeService(final Context context){
 
@@ -35,7 +34,7 @@ public class YoutubeService {
                 request.getHeaders().set("X-Android-Package", context.getPackageName());
                 request.getHeaders().set("X-Android-Cert", SHA_1_FINGER_PRINT);
             }
-        }).setApplicationName("Series-Movie App").build();
+        }).setApplicationName("Series-Movie AppController").build();
 
         try{
             query = youTube.search().list("id,snippet");
@@ -57,7 +56,7 @@ public class YoutubeService {
         query.setQ(keywords);
         query.setMaxResults((long) 1);
 
-        onTaskCompletedListener = listener;
+        this.onTaskCompletedListener = listener;
 
         try{
             SearchListResponse response = query.execute();

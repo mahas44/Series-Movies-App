@@ -2,30 +2,43 @@ package com.enes.moviesapp.ui.viewmodel;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
+import androidx.paging.LivePagedListBuilder;
 import androidx.paging.PagedList;
 
+import com.enes.moviesapp.AppController;
 import com.enes.moviesapp.model.series.Series;
-import com.enes.moviesapp.repository.SeriesRepository;
+import com.enes.moviesapp.model.series.SeriesDataSourceFactory;
 
-import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class SeriesViewModel extends ViewModel {
 
-    private SeriesRepository seriesRepository;
-
     private LiveData<PagedList<Series>> seriesPagedList;
 
-    private LiveData<List<Series>> seriesLiveData;
 
-    public SeriesViewModel(SeriesRepository seriesRepository) {
-        this.seriesRepository = seriesRepository;
+    private AppController appController;
+    private Executor executor;
 
-        this.seriesPagedList = seriesRepository.getSeriesPagedList();
-        this.seriesLiveData = seriesRepository.getSeries();
+    public SeriesViewModel(AppController appController) {
+        this.appController = appController;
+        init();
     }
 
-    public LiveData<List<Series>> getSeriesResponseLiveData(){
-        return seriesLiveData;
+    public void init(){
+        SeriesDataSourceFactory factory = new SeriesDataSourceFactory(appController);
+
+        PagedList.Config config = (new PagedList.Config.Builder())
+                .setEnablePlaceholders(true)
+                .setInitialLoadSizeHint(10)
+                .setPageSize(20)
+                .setPrefetchDistance(4)
+                .build();
+
+        executor = Executors.newFixedThreadPool(5);
+        seriesPagedList = (new LivePagedListBuilder<Long, Series>(factory,config))
+                .setFetchExecutor(executor)
+                .build();
     }
 
     public LiveData<PagedList<Series>> getSeriesPagedList() {

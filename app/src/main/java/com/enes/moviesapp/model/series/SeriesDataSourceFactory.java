@@ -1,31 +1,28 @@
 package com.enes.moviesapp.model.series;
 
-import android.app.Application;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 import androidx.paging.DataSource;
 
-import com.enes.moviesapp.service.SeriesService;
+import com.enes.moviesapp.AppController;
 
 public class SeriesDataSourceFactory extends DataSource.Factory {
 
-    private SeriesService seriesService;
-    private Application application;
     private SeriesDataSource seriesDataSource;
     private MutableLiveData<SeriesDataSource> mutableLiveData;
+    AppController appController;
 
 
-    public SeriesDataSourceFactory(SeriesService seriesService, Application application) {
-        this.seriesService = seriesService;
-        this.application = application;
-        mutableLiveData = new MutableLiveData<>();
+
+    public SeriesDataSourceFactory(AppController appController) {
+        this.appController = appController;
+        this.mutableLiveData = new MutableLiveData<>();
     }
 
     @NonNull
     @Override
     public DataSource create() {
-        seriesDataSource = new SeriesDataSource(seriesService,application);
+        seriesDataSource = new SeriesDataSource(appController);
         mutableLiveData.postValue(seriesDataSource);
         return seriesDataSource;
     }

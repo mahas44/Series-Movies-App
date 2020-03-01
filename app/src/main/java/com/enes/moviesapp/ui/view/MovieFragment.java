@@ -15,7 +15,7 @@ import androidx.paging.PagedList;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.enes.moviesapp.App;
+import com.enes.moviesapp.AppController;
 import com.enes.moviesapp.R;
 import com.enes.moviesapp.adapter.MovieAdapter;
 import com.enes.moviesapp.databinding.FragmentMovieBinding;
@@ -51,7 +51,7 @@ public class MovieFragment extends Fragment {
         my_recycler_view.setAdapter(adapter);
         adapter.setMoviePagedList(movies);
 
-        App.getApp().getMovieComponent().inject(this);
+        AppController.create(getContext()).getMovieComponent().inject(this);
 
         // View Model
         movieViewModel = ViewModelProviders.of(this, movieViewModelFactory).get(MovieViewModel.class);

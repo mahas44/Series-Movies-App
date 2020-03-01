@@ -1,6 +1,7 @@
 package com.enes.moviesapp.di;
 
-import android.app.Application;
+
+import com.enes.moviesapp.AppController;
 
 import javax.inject.Singleton;
 
@@ -10,15 +11,15 @@ import dagger.Provides;
 @Module
 public class AppModule {
 
-    private Application application;
+    private AppController appController;
 
-    public AppModule(Application application) {
-        this.application = application;
+    public AppModule(AppController appController) {
+        this.appController = appController;
     }
 
     @Singleton
     @Provides
-    Application providesApplication(){
-        return application;
+    AppController providesAppController(){
+        return appController;
     }
 }

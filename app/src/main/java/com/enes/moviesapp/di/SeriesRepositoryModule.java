@@ -1,6 +1,5 @@
 package com.enes.moviesapp.di;
 
-import android.app.Application;
 
 import com.enes.moviesapp.repository.SeriesRepository;
 
@@ -14,7 +13,7 @@ public class SeriesRepositoryModule {
 
     @Singleton
     @Provides
-    SeriesRepository providesSeriesRepository(Application application){
-        return new SeriesRepository(application);
+    SeriesRepository providesSeriesRepository(){
+        return new SeriesRepository();
     }
 }

@@ -1,6 +1,9 @@
 package com.enes.moviesapp.ui.view;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -10,15 +13,11 @@ import androidx.paging.PagedList;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import com.enes.moviesapp.App;
+import com.enes.moviesapp.AppController;
+import com.enes.moviesapp.R;
 import com.enes.moviesapp.adapter.SeriesAdapter;
 import com.enes.moviesapp.databinding.FragmentSeriesBinding;
 import com.enes.moviesapp.model.series.Series;
-import com.enes.moviesapp.R;
 import com.enes.moviesapp.ui.viewmodel.SeriesViewModel;
 import com.enes.moviesapp.ui.viewmodel.SeriesViewModelFactory;
 
@@ -49,7 +48,7 @@ public class SeriesFragment extends Fragment {
         my_recycler_view.setAdapter(adapter);
         adapter.setSeriesPagedList(series);
 
-        App.getApp().getSeriesComponent().inject(this);
+        AppController.create(getContext()).getSeriesComponent().inject(this);
 
         // View Model
         seriesViewModel = ViewModelProviders.of(this,seriesViewModelFactory).get(SeriesViewModel.class);

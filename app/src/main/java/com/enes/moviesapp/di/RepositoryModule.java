@@ -1,7 +1,5 @@
 package com.enes.moviesapp.di;
 
-import android.app.Application;
-
 import com.enes.moviesapp.repository.MovieRepository;
 
 import javax.inject.Singleton;
@@ -14,7 +12,7 @@ public class RepositoryModule {
 
     @Singleton
     @Provides
-    MovieRepository providesMovieRepository(Application application){
-        return new MovieRepository(application);
+    MovieRepository providesMovieRepository(){
+        return new MovieRepository();
     }
 }

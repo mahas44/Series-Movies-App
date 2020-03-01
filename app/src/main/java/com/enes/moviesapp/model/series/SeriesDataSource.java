@@ -1,13 +1,10 @@
 package com.enes.moviesapp.model.series;
 
-import android.app.Application;
-
 import androidx.annotation.NonNull;
 import androidx.paging.PageKeyedDataSource;
 
-import com.enes.moviesapp.R;
-import com.enes.moviesapp.retrofit.RetrofitInstance;
-import com.enes.moviesapp.service.SeriesService;
+import com.enes.moviesapp.AppController;
+import com.enes.moviesapp.BaseConstant;
 
 import java.util.ArrayList;
 
@@ -15,20 +12,17 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SeriesDataSource extends PageKeyedDataSource<Long, Series> {
+public class SeriesDataSource extends PageKeyedDataSource<Long, Series> implements BaseConstant {
 
-    private SeriesService seriesService;
-    private Application application;
+    AppController appController;
 
-    public SeriesDataSource(SeriesService seriesService, Application application) {
-        this.seriesService = seriesService;
-        this.application = application;
+    public SeriesDataSource(AppController appController) {
+        this.appController = appController;
     }
 
     @Override
     public void loadInitial(@NonNull LoadInitialParams<Long> params, @NonNull final LoadInitialCallback<Long, Series> callback) {
-        seriesService = RetrofitInstance.getRetrofitInstance().create(SeriesService.class);
-        Call<SeriesResponse> call = seriesService.getPopularMoviesWithPaging(application.getApplicationContext().getString(R.string.TMDB_API_KEY),1);
+        Call<SeriesResponse> call = appController.getSeriesService().getPopularMoviesWithPaging(TMDB_API_KEY,1);
 
         call.enqueue(new Callback<SeriesResponse>() {
             @Override
@@ -55,8 +49,7 @@ public class SeriesDataSource extends PageKeyedDataSource<Long, Series> {
 
     @Override
     public void loadAfter(@NonNull final LoadParams<Long> params, @NonNull final LoadCallback<Long, Series> callback) {
-        seriesService = RetrofitInstance.getRetrofitInstance().create(SeriesService.class);
-        Call<SeriesResponse> call = seriesService.getPopularMoviesWithPaging(application.getApplicationContext().getString(R.string.TMDB_API_KEY),params.key);
+        Call<SeriesResponse> call = appController.getSeriesService().getPopularMoviesWithPaging(TMDB_API_KEY,params.key);
 
         call.enqueue(new Callback<SeriesResponse>() {
             @Override
